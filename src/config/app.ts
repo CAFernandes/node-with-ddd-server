@@ -81,23 +81,23 @@ class App {
    * @param {Number} httpsPort - The port number that the server will listen to https.
    * @param {Number} httpPort - The port number that the server will listen to http.
    */
-  listen(httpsPort: number): void {
+  listen(PORT: number): void {
     this.server = https.createServer({}, this.app);
-    this.server.listen(httpsPort, () => {
-      logger.level = 'debug';
-      logger.info(`Backend Staterd in port: ${httpsPort}`);
-      logger.info(
-        `Ambiente: ${process.env.TS_NODE_DEV ? 'DEVELOPMENT' : 'PRODUCTION'}`
-      );
-      logger.info('IP Address: ' + this.getIPAddress());
-    });
-    // this.app.listen(httpPort, () => {
+    // this.server.listen(httpsPort, () => {
     //   logger.level = 'debug';
-    //   logger.info(`Backend Staterd in port: http://localhost:${httpPort}`);
+    //   logger.info(`Backend Staterd in port: ${httpsPort}`);
     //   logger.info(
     //     `Ambiente: ${process.env.TS_NODE_DEV ? 'DEVELOPMENT' : 'PRODUCTION'}`
     //   );
+    //   logger.info('IP Address: ' + this.getIPAddress());
     // });
+    this.app.listen(PORT, () => {
+      logger.level = 'debug';
+      logger.info(`Backend Staterd in port: http://localhost:${PORT}`);
+      logger.info(
+        `Ambiente: ${process.env.TS_NODE_DEV ? 'DEVELOPMENT' : 'PRODUCTION'}`
+      );
+    });
   }
   getIPAddress = (): string | undefined => {
     const interfaces = os.networkInterfaces();
