@@ -87,7 +87,7 @@ class App {
   listen(httpsPort: number, httpPort: number): void {
     this.app.listen(httpsPort, () => {
       logger.info(`Backend Staterd in port: ${httpsPort}`);
-    }
+    });
     // this.server = https.createServer(this.options, this.app);
     // this.server.listen(httpsPort, () => {
     //   logger.level = 'debug';
