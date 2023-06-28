@@ -85,21 +85,24 @@ class App {
    * @param {Number} httpPort - The port number that the server will listen to http.
    */
   listen(httpsPort: number, httpPort: number): void {
-    this.server = https.createServer(this.options, this.app);
-    this.server.listen(httpsPort, () => {
-      logger.level = 'debug';
-      logger.info(`Backend Staterd in: https://localhost:${httpsPort}`);
-      logger.info(
-        `Ambiente: ${process.env.TS_NODE_DEV ? 'DEVELOPMENT' : 'PRODUCTION'}`
-      );
-    });
-    this.app.listen(httpPort, () => {
-      logger.level = 'debug';
-      logger.info(`Backend Staterd in: http://localhost:${httpPort}`);
-      logger.info(
-        `Ambiente: ${process.env.TS_NODE_DEV ? 'DEVELOPMENT' : 'PRODUCTION'}`
-      );
-    });
+    this.app.listen(httpsPort, () => {
+      logger.info(`Backend Staterd in port: ${httpsPort}`);
+    }
+    // this.server = https.createServer(this.options, this.app);
+    // this.server.listen(httpsPort, () => {
+    //   logger.level = 'debug';
+    //   logger.info(`Backend Staterd in: https://localhost:${httpsPort}`);
+    //   logger.info(
+    //     `Ambiente: ${process.env.TS_NODE_DEV ? 'DEVELOPMENT' : 'PRODUCTION'}`
+    //   );
+    // });
+    // this.app.listen(httpPort, () => {
+    //   logger.level = 'debug';
+    //   logger.info(`Backend Staterd in: http://localhost:${httpPort}`);
+    //   logger.info(
+    //     `Ambiente: ${process.env.TS_NODE_DEV ? 'DEVELOPMENT' : 'PRODUCTION'}`
+    //   );
+    // });
   }
   /**
    * The function die() is a void function that exits the process
