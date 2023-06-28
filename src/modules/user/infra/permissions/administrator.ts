@@ -1,0 +1,20 @@
+export const administrator = {
+  can: [
+    'user:create',
+    'user:read',
+    'user:update',
+    'user:delete',
+    'company:create',
+    'company:read',
+    'company:update',
+    'company:delete',
+    // 'unit:create',
+    // 'unit:read',
+    // 'unit:update',
+    // 'unit:delete',
+    // 'active:create',
+    // 'active:read',
+    // 'active:update',
+    // 'active:delete',
+  ],
+};

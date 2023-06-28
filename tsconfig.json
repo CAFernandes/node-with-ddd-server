@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "NodeNext",
+    "lib": ["ESNext"],
+    "allowJs": true,
+    "strict": true,
+    "removeComments": true,
+    "typeRoots": ["./src/@types", "./node_modules/@types"],
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "rootDir": ".",
+    "baseUrl": ".",
+    "strictPropertyInitialization": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "paths": {
+      //? Config
+      "@config/*": ["./src/config/*.ts"],
+      //? Shared
+      "@/errors/*": ["./src/shared/errors/*.ts"],
+      "@/connection/*": ["./src/shared/connection/*.ts"],
+      "@middlewares/*": ["./src/shared/middlewares/*.ts"],
+      "@services/*": ["./src/shared/services/*"],
+      "@/utils/*": ["./src/shared/utils/*"],
+      //? Modules
+      "@active/*": ["./src/modules/active/*"],
+      "@company/*": ["./src/modules/company/*"],
+      "@unit/*": ["./src/modules/unit/*"],
+      "@user/*": ["./src/modules/user/*"]
+    }
+  },
+  "include": ["./src/**/*.ts", "./src/**/*.json", "./src/**/*.d.ts"],
+  "exclude": ["node_modules", "./src/test/*", "./docker/*", "./*.js", "*.js"]
+}
