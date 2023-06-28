@@ -16,7 +16,7 @@ import { UnitRouter } from '@unit/routers/UnitRouter';
 import { SessionRouter } from '@user/routers/SessionRouter';
 import { UserRouter } from '@user/routers/UserRouter';
 import { createDatabaseAndCollections } from './services/createDatabaseAndCollections';
-import { networkInterfaces } from 'os';
+import os from 'os';
 
 type TlsOptions = {
   key: Buffer;
@@ -86,42 +86,38 @@ class App {
    * @param {Number} httpPort - The port number that the server will listen to http.
    */
   listen(httpsPort: number, httpPort: number): void {
-    // this.app.listen(httpsPort, () => {
-    //   logger.info(`Backend Staterd in port: ${httpsPort}`);
-    // });
-    const nets = networkInterfaces();
-    const results = Object.create(null); // Or just '{}', an empty object
-
-    for (const name of Object.keys(nets)) {
-      for (const net of nets[name]) {
-        // Skip over non-IPv4 and internal (i.e. 127.0.0.1) addresses
-        // 'IPv4' is in Node <= 17, from 18 it's a number 4 or 6
-        const familyV4Value = typeof net.family === 'string' ? 'IPv4' : 4;
-        if (net.family === familyV4Value && !net.internal) {
-          if (!results[name]) {
-            results[name] = [];
-          }
-          results[name].push(net.address);
-        }
-      }
-    }
-    logger.info(results);
     this.server = https.createServer({}, this.app);
     this.server.listen(httpsPort, () => {
       logger.level = 'debug';
-      logger.info(`Backend Staterd in: https://localhost:${httpsPort}`);
+      logger.info(`Backend Staterd in port: ${httpsPort}`);
       logger.info(
         `Ambiente: ${process.env.TS_NODE_DEV ? 'DEVELOPMENT' : 'PRODUCTION'}`
       );
+      logger.info('IP Address: ' + this.getIPAddress());
     });
     this.app.listen(httpPort, () => {
       logger.level = 'debug';
-      logger.info(`Backend Staterd in: http://localhost:${httpPort}`);
+      logger.info(`Backend Staterd in port: http://localhost:${httpPort}`);
       logger.info(
         `Ambiente: ${process.env.TS_NODE_DEV ? 'DEVELOPMENT' : 'PRODUCTION'}`
       );
     });
   }
+  getIPAddress = (): string | undefined => {
+    const interfaces = os.networkInterfaces();
+
+    for (const networkInterface of Object.values(interfaces)) {
+      if (networkInterface) {
+        for (const iface of networkInterface) {
+          if (iface.family === 'IPv4' && !iface.internal) {
+            return iface.address;
+          }
+        }
+      }
+    }
+
+    return undefined;
+  };
   /**
    * The function die() is a void function that exits the process
    */
