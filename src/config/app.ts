@@ -56,11 +56,7 @@ class App {
         crossOriginResourcePolicy: { policy: 'cross-origin' },
       })
     );
-    this.app.use(
-      cors({
-        origin: 'http://localhost:5173',
-      })
-    );
+    this.app.use(cors());
     this.app.use(express.json({ limit: '25mb' }));
     this.app.use(express.urlencoded({ limit: '25mb', extended: true }));
     if (process.env.REQUEST_INTERCEPT) this.app.use(loggerRequest);
