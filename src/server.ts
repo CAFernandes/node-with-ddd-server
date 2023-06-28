@@ -1,7 +1,4 @@
 import App from '@config/app';
 
-App.listen(
-  Number(process.env.HTTPSPORT) || 443,
-  Number(process.env.HTTPPORT) || 80
-);
+App.listen(Number(process.env.PORT) || 443);
 process.once('SIGINT', () => App.die());
